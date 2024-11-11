@@ -2,14 +2,14 @@
 Why pay event platform fees when you can run your own micro-service instead?
 
 ## Why?
-Using a managed event-ticketing site makes things easy - for a fee. These fees may seem inocuous, but the add up.
+Using a managed event-ticketing site makes things easy - for a fee. These fees may seem inocuous, but they add up.
 
 | Event Platform | Fees (in US) |
 |  -----         | ---- |
 | Eventbrite | 3.7% of Ticket Price + $1.79 per ticket + payment processing fees |
 | TicketLeap | 2% of Ticket Price + $1.00 per ticket + payment processing fees |
 
-Even for an event with ~$20 tickets and ~100 attendees, this equates to $100s of dollars in ticket fees - exclusive of payment processing costs!
+Even for a modest event with ~$20 tickets and ~100 attendees, this equates to $100s of dollars in ticket fees - exclusive of payment processing costs!
 
 ### Total Cost of an event:
 - Assumming use of the GCP free tier, only Stripe credit-card processing fees - that's it!
