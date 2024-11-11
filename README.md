@@ -38,4 +38,4 @@ You will now have the API set up to receive Stripe webhook events and trigger co
 6. Update the Stripe webhook event to send requests to the service's Google Cloud Run endpoint.
 7. Complete.
 
-Having now saved some dollar amount on platform fees, realize that sometimes it is worth paying someone to manage a service for you and use Eventbrite etc. for subsequent events.
+Having now saved some dollar amount on platform fees, realize that sometimes it is worth paying someone to manage a service for you and use Eventbrite etc. for subsequent events 😅.
