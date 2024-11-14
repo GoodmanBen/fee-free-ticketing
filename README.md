@@ -1,4 +1,4 @@
-# lightweight-ticketing
+# fee-free-ticketing
 Why pay event platform fees when you can run your own micro-service instead?
 
 ## Why?
@@ -12,7 +12,7 @@ Using a managed event-ticketing site makes things easy - for a fee. These fees m
 Even for a modest event with ~$20 tickets and ~100 attendees, this equates to $100s of dollars in ticket fees - exclusive of payment processing costs!
 
 ### Total Cost of an event:
-- Assumming use of the GCP free tier, only Stripe credit-card processing fees - that's it!
+- Assuming use of the GCP free tier, only Stripe credit-card processing fees - that's it!
 
 ## Getting started
 #### Disclaimer

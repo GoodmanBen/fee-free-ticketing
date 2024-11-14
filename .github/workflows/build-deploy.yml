@@ -1,0 +1,5 @@
+name: build-deploy
+on:
+  push:
+    branches:
+      - main
