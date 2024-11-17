@@ -1,7 +1,9 @@
 package api
 
+import "github.com/stripe/stripe-go"
+
 type SendGridRequest struct{}
 
-func (cf *Config) SendConfirmationEmailRequest(purchase *SessionCheckoutCompleted) error {
+func (cf *Config) SendConfirmationEmailRequest(event *stripe.Event) error {
 	return nil
 }

@@ -1,7 +1,23 @@
 package api
 
-type Config struct{}
+import (
+	"fmt"
+
+	"github.com/kelseyhightower/envconfig"
+)
+
+type Config struct {
+	StripeWebhookSecret     string
+	SendGridApiToken        string
+	SendGridEmailTemplateID string
+}
 
 func LoadConfig() (*Config, error) {
-	return nil, nil
+	var config Config
+	err := envconfig.Process("FREETICKETING", &config)
+	if err != nil {
+		return nil, fmt.Errorf("[envconfig.Process]%w", err)
+	}
+
+	return &config, nil
 }
