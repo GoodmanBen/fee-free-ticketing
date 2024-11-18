@@ -32,7 +32,7 @@ func (cf *Config) SendConfirmationEmailRequest(event *stripe.Event) error {
 
 	m := mail.NewV3Mail()
 
-	address := "goodmanben@dragondrop.cloud"
+	address := "hello@dragondrop.cloud"
 	name := "Ben Goodman"
 	e := mail.NewEmail(name, address)
 	m.SetFrom(e)
@@ -40,6 +40,11 @@ func (cf *Config) SendConfirmationEmailRequest(event *stripe.Event) error {
 	m.SetTemplateID(cf.SendGridEmailTemplateID)
 
 	p := mail.NewPersonalization()
+
+	tos := []*mail.Email{
+		mail.NewEmail(webhookBody.Name, "goodmanben@dragondrop.cloud"),
+	}
+	p.AddTos(tos...)
 
 	p.SetDynamicTemplateData("first_name", webhookBody.Name)
 	p.SetDynamicTemplateData("ticket_count", math.Floor(webhookBody.AmountTotal/TicketCost))

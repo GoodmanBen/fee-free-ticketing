@@ -14,7 +14,7 @@ func (cf *Config) NewAPI() *gin.Engine {
 
 	apiGroup := r.Group(apiPrefix)
 
-	apiGroup.Handle(http.MethodPost, "/", cf.HandleStripeCheckoutSessionComplete)
+	apiGroup.Handle(http.MethodPost, "", cf.HandleStripeCheckoutSessionComplete)
 
 	return r
 }
@@ -27,6 +27,12 @@ func (cf *Config) HandleStripeCheckoutSessionComplete(c *gin.Context) {
 
 		fmt.Printf("[VerifyAndParseRequest]%s", err.Error())
 		c.JSON(http.StatusInternalServerError, gin.H{"status": "Internal Server Error"})
+
+		return
+	} else if sessionComplete == nil {
+		c.JSON(http.StatusAccepted, gin.H{"status": "Accepted event but event type is no-operation."})
+
+		return
 	}
 
 	err = cf.SendConfirmationEmailRequest(sessionComplete)
@@ -34,6 +40,8 @@ func (cf *Config) HandleStripeCheckoutSessionComplete(c *gin.Context) {
 
 		fmt.Printf("[SendConfirmationEmailRequest]%s", err.Error())
 		c.JSON(http.StatusInternalServerError, gin.H{"status": "Internal Server Error"})
+
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"status": "OK"})

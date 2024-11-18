@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"main/main/internal/api"
 )
 
@@ -15,4 +16,6 @@ func main() {
 	if err = engine.Run(); err != nil {
 		panic(err)
 	}
+
+	fmt.Println("Alive and Ready to serve traffic!")
 }

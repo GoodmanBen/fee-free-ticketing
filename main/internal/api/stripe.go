@@ -29,7 +29,9 @@ func (cf *Config) VerifyAndParseRequest(c *gin.Context) (*stripe.Event, error) {
 	}
 
 	if event.Type != "checkout.session.completed" {
-		return nil, fmt.Errorf("received valid event but an unsupported type: %v", event.Type)
+		fmt.Printf("received valid event but an unsupported type: %v\n", event.Type)
+
+		return nil, nil
 	}
 
 	return &event, nil
