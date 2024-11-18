@@ -14,7 +14,7 @@ type Config struct {
 
 func LoadConfig() (*Config, error) {
 	var config Config
-	err := envconfig.Process("FREETICKETING", &config)
+	err := envconfig.Process("", &config)
 	if err != nil {
 		return nil, fmt.Errorf("[envconfig.Process]%w", err)
 	}
