@@ -30,12 +30,18 @@ This approach is likely only worthwhile from a time and money perspective if you
 2. Create a webhook in Stripe to forward `checkout.session.completed` events to an arbitrary domain name.
 3. Create a Sendgrid email template with fields for `first_name`, `ticket_count` and `total_cost`.
 4. Create secrets in GCP for:
-   - `stripe_webhook_key`
-   - `sendgrid_auth_token`
-5. Fork this repository and deploy to your Google Cloud account
-   - `just deploy`
-You will now have the API set up to receive Stripe webhook events and trigger confirmation emails via Sendgrid.
-6. Update the Stripe webhook event to send requests to the service's Google Cloud Run endpoint.
-7. Complete.
+   - `STRIPE_WEBHOOK_KEY`
+   - `SENDGRID_API_KEY`
+   - `SENDGRIDEMAILTEMPLATEID`
+The default compute engine service account must be granted access to read each of these secret values.
+
+5. Fork this repository and deploy to your Google Cloud account.
+Update env vars and values specific for your GCP project, email addresses, etc. 
+   1. `just set-project`. Set build and deployment to be in the right GCP project. You may need to authenticate your `gcloud` CLI tool with `gcloud auth login` first.
+   2. `just create-artifact-registry-repo`. Create a GCP artifact registry repo for the services image.
+   3. `just build-and-push-image`. Build the Docker image and push it to your remote repository.
+   4. `just deploy-cloud-run`. Creates a cloud-run instance to serve traffic. Go to the cloud console and grab the API endpoint that GCP configures.
+6. Update the Stripe webhook event to send requests to the service's Google Cloud Run endpoint + `/api/v1`.
+7. Notify attendees to register for their fee-free event (expect for credit card fees, impossible to avoid those).
 
 Having now saved some dollar amount on platform fees, realize that sometimes it is worth paying someone to manage a service for you and use Eventbrite etc. for subsequent events 😅.

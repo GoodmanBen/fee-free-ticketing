@@ -7,6 +7,8 @@ import (
 )
 
 type Config struct {
+	FromEmail               string
+	FromName                string
 	StripeWebhookSecret     string
 	SendGridApiToken        string
 	SendGridEmailTemplateID string

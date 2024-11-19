@@ -11,6 +11,7 @@ import (
 )
 
 const TicketCost = 20.0
+const CentsToDollars = 100
 
 type StripeWebhookEvent struct {
 	AmountTotal     float64 `json:"amount_total"`
@@ -32,8 +33,8 @@ func (cf *Config) SendConfirmationEmailRequest(event *stripe.Event) error {
 
 	m := mail.NewV3Mail()
 
-	address := "hello@dragondrop.cloud"
-	name := "Ben Goodman"
+	address := cf.FromEmail
+	name := cf.FromName
 	e := mail.NewEmail(name, address)
 	m.SetFrom(e)
 
@@ -42,13 +43,13 @@ func (cf *Config) SendConfirmationEmailRequest(event *stripe.Event) error {
 	p := mail.NewPersonalization()
 
 	tos := []*mail.Email{
-		mail.NewEmail(webhookBody.Name, "goodmanben@dragondrop.cloud"),
+		mail.NewEmail(webhookBody.Name, webhookBody.Email),
 	}
 	p.AddTos(tos...)
 
 	p.SetDynamicTemplateData("first_name", webhookBody.Name)
-	p.SetDynamicTemplateData("ticket_count", math.Floor(webhookBody.AmountTotal/TicketCost))
-	p.SetDynamicTemplateData("total_cost", webhookBody.AmountTotal)
+	p.SetDynamicTemplateData("ticket_count", math.Floor(webhookBody.AmountTotal/CentsToDollars/TicketCost))
+	p.SetDynamicTemplateData("total_cost", webhookBody.AmountTotal/CentsToDollars)
 
 	m.AddPersonalizations(p)
 
