@@ -11,7 +11,7 @@ Using a managed event-ticketing site makes things easy - for a fee. These fees m
 
 Even for a modest event with ~$20 tickets and ~100 attendees, this equates to $100s of dollars in ticket fees - exclusive of payment processing costs!
 
-### Total Cost of an event:
+### Total Cost of an event using fee-free-ticketing:
 - Assuming use of the GCP free tier, only Stripe credit-card processing fees - that's it!
 
 ## Getting started
@@ -20,10 +20,14 @@ This repo is meant to be extremely lightweight - you will not find enterprise CI
 
 This approach is likely only worthwhile from a time and money perspective if you already have the corporate/LLC entity established to be able to use Stripe and Sendgrid.
 
+Lastly, this microservice only supports sending out an email confirmation after a ticket purchase for an event is complete.
+For many casual events, accepting payments and sending a confirmation email is sufficient, but for others it might not be enough.
+If the later is the case, you may require a more sophisticated platform. 
+
 ### Tech Stack:
 - Stripe Account (handling payments)
 - Sendgrid Account (email notifications)
-- Google Cloud Run (compute, coordinate confirmation email firing)
+- Google Cloud Run (compute to coordinate confirmation email firing)
 
 ### Creating Your Event
 1. Create a payment link in Stripe for your event.
@@ -36,7 +40,8 @@ This approach is likely only worthwhile from a time and money perspective if you
 The default compute engine service account must be granted access to read each of these secret values.
 
 5. Fork this repository and deploy to your Google Cloud account.
-Update env vars and values specific for your GCP project, email addresses, etc. 
+Update env vars and values specific for your GCP project, email addresses, etc. Within the root of the repository
+run the following `just` commands:
    1. `just set-project`. Set build and deployment to be in the right GCP project. You may need to authenticate your `gcloud` CLI tool with `gcloud auth login` first.
    2. `just create-artifact-registry-repo`. Create a GCP artifact registry repo for the services image.
    3. `just build-and-push-image`. Build the Docker image and push it to your remote repository.
